@@ -19,3 +19,20 @@ exports.getProfileMe = async (req, res, next) =>{
 }
 
 
+// create the user profile
+
+
+exports.createProfile = async (req, res) =>{
+    const errors = validationResult(req); 
+    if(!errors){
+
+        return res.status(400).json({errors: errors.array() });
+    }
+    const
+    {
+        company,
+        bio,
+        website
+    } = req.body;
+}
+
