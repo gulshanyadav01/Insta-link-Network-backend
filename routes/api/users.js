@@ -1,11 +1,11 @@
 const express = require("express"); 
 const router = express.Router();
 const {check, validationResult} = require("express-validator"); 
-
+const userController = require("../../controller/User")
 // @ route GET api/users/
 // @ desc  Test routes
 // @ accesss Public 
-const userController = require("../../controller/User")
+
 router.post("/",[
     check("name", "Name is required")
         .not()
@@ -15,7 +15,7 @@ router.post("/",[
     check("password", "pleas enter a password with 6 or more characters")
         .isLength({min:6})
 
-], userController.postUser);
+], userController.postRegisterUser);
 
 
 module.exports = router;

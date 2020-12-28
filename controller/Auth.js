@@ -1,44 +1,41 @@
-const {validationResult} = require("express-validator"); 
 const User = require("../model/User")
-const bcrypt = require("bcryptjs"); 
-const gravatar = require("gravatar");
-const { use } = require("../routes/api/auth");
 const jwt = require("jsonwebtoken"); 
-const config = require('config'); 
+const config = require('config');
+const bcrypt = require("bcryptjs")
+const { validationResult } = require("express-validator"); 
 
-exports.postRegisterUser = async (req, res) =>{
+
+
+// @ route Post api/auth
+// @ desc  Authenticate user and get token 
+// @ accesss Public 
+
+
+exports.postLoginUser = async (req, res) =>{
     const errors = validationResult(req); 
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()}); 
     }
     
-    const {name, email, password } = req.body; 
+    const { email, password } = req.body; 
 
     // see if user exists 
     try{
         let user = await User.findOne({email: email});
-        if(user){
-            res.status(400).json({errors: [{msg:"User is already exists"}]}); 
+        if(!user){
+            return res.status(400).json({errors: [{msg:"User is not  exists"}]}); 
         }
 
     // get users gravatar 
 
-    const avatar = gravatar.url(email,{
-        s:"200",
-        r:"pg",
-        d:"mm"
-    })
+    const isMatch = await bcrypt.compare(password, user.password);
 
-    user = new User({
-        name,
-        email,
-        avatar,
-        password
-    })
+    if(!isMatch){
+        return res.status(400).json({errors:[{msg:"invalid Credentials"}]}); 
+    }
+    
 
-    // const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(password, 10);
-    await user.save(); 
+   
     const payload = {
         user:{
             id:user.id
@@ -61,6 +58,8 @@ exports.postRegisterUser = async (req, res) =>{
         res.status(500).send("server error")
     } 
 }
+
+
 
 
 
