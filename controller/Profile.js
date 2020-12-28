@@ -1,6 +1,8 @@
 const Profile = require("../model/Profile")
 const User = require("../model/User")
+const {check, validationResult}  = require("express-validator");
 
+// for login user profile 
 exports.getProfileMe = async (req, res, next) =>{
     try{
         const profile = await Profile.findOne({user: req.user.id}).populate("user", ["name", 'avatar']);
@@ -15,3 +17,5 @@ exports.getProfileMe = async (req, res, next) =>{
         res.status(500).send("server error"); 
     }
 }
+
+
