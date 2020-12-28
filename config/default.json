@@ -1,3 +1,4 @@
 {
-    "mongoURI":"mongodb+srv://gulshan:Tzd8Rx20iYBRgyFG@cluster0.pzhj1.mongodb.net/socialNetwork?retryWrites=true&w=majority"
+    "mongoURI":"mongodb+srv://gulshan:Tzd8Rx20iYBRgyFG@cluster0.pzhj1.mongodb.net/socialNetwork?retryWrites=true&w=majority",
+    "jwtSecret":"mysecrettoken"
 }

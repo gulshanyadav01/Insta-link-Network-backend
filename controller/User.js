@@ -3,6 +3,8 @@ const User = require("../model/User")
 const bcrypt = require("bcryptjs"); 
 const gravatar = require("gravatar");
 const { use } = require("../routes/api/auth");
+const jwt = require("jsonwebtoken"); 
+const config = require('config'); 
 
 exports.postUser = async (req, res) =>{
     const errors = validationResult(req); 
@@ -36,9 +38,21 @@ exports.postUser = async (req, res) =>{
 
     // const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, 10);
-    await user.save();  
-    return res.send("user registered"); 
-    // encypt the user password 
+    await user.save(); 
+    const payload = {
+        user:{
+            id:user.id
+        }
+    } 
+    jwt.sign(
+        payload, 
+        config.get("jwtSecret"),
+        {expiresIn: 360000 }, (err, token )=>{
+            if(err) throw err; 
+            res.json({token});
+
+        }) 
+    
 
     // return json web token 
 
