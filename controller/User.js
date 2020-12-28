@@ -1,13 +1,52 @@
 const {validationResult} = require("express-validator"); 
+const User = require("../model/User")
+const bcrypt = require("bcryptjs"); 
+const gravatar = require("gravatar");
+const { use } = require("../routes/api/auth");
 
-
-
-exports.postUser = (req, res) =>{
+exports.postUser = async (req, res) =>{
     const errors = validationResult(req); 
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()}); 
     }
     
-    res.send("this is your user"); 
+    const {name, email, password } = req.body; 
+
+    // see if user exists 
+    try{
+        let user = await User.findOne({email: email});
+        if(user){
+            res.status(400).json({errors: [{msg:"User is already exists"}]}); 
+        }
+
+    // get users gravatar 
+
+    const avatar = gravatar.url(email,{
+        s:"200",
+        r:"pg",
+        d:"mm"
+    })
+
+    user = new User({
+        name,
+        email,
+        avatar,
+        password
+    })
+
+    // const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, 10);
+    await user.save();  
+    return res.send("user registered"); 
+    // encypt the user password 
+
+    // return json web token 
+
+    }catch(err){
+        console.log(err.message); 
+        res.status(500).send("server error")
+    } 
 }
+
+
 
