@@ -33,6 +33,6 @@ exports.createProfile = async (req, res) =>{
         company,
         bio,
         website
-    } = req.body
+    } = req.body;
 }
 
