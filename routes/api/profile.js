@@ -1,8 +1,9 @@
 const express = require("express"); 
 const router = express.Router();
-const auth = require("../../middleware/auth")
 const profileController = require("../../controller/Profile"); 
-const {chech, validationResult} = require("express-validator"); 
+const {check, validationResult} = require("express-validator"); 
+const auth = require("../../middleware/auth");
+
 
 // @ route get  api/profile/me
 // @ desc  get current users profile 
@@ -11,18 +12,18 @@ router.get("/me", auth, profileController.getProfileMe);
 
 
 
-// @ route get  api/profile/
+// @ route POST  api/profile/
 // @ desc  create or update user profile
-// @ accesss private 
+// @ accesss Private 
 
-router.post("/", [
-    auth, 
+router.post("/", [auth, [ 
     check("status", "status is required")
         .not()
         .isEmpty(),
     check("skills","skills is required")
         .not()
         .isEmpty()
-]  )
+    ]
+], profileController.createProfile)
 
 module.exports = router;

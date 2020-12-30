@@ -24,15 +24,24 @@ exports.getProfileMe = async (req, res, next) =>{
 
 exports.createProfile = async (req, res) =>{
     const errors = validationResult(req); 
-    if(!errors){
+    if(!errors.isEmpty()){
 
         return res.status(400).json({errors: errors.array() });
     }
-    const
-    {
-        company,
+    const {
+        company, 
+        website,
+        location,
         bio,
-        website
-    } = req.body
+        status,
+        githubusername,
+        skills,
+        youtube,
+        facebook,
+        twitter,
+        instagram,
+        linkedin
+    } = req.body; 
+    console.log(skills);
 }
 
