@@ -58,7 +58,36 @@ exports.createProfile = async (req, res) =>{
         profileFields.skills = skills.split(",").map(skill => skill.trim()); 
     }
     console.log(profileFields.skills); 
-    res.send("hello")
+    
+    // build social object 
+
+    profileFields.social = {};
+    if(youtube) profileFields.social.youtube = youtube; 
+    if(twitter) profileFields.social.twitter = twitter; 
+    if(facebook) profileFields.social.facebook = facebook; 
+    if(linkedin) profileFields.social.linkedin = linkedin; 
+    if(instagram) profileFields.social.instagram = instagram; 
+
+    try{
+        let profile = await Profile.findOne({user: req.user.id})
+        console.log(req.user.id)
+        // console.log(profile)
+        if(profile){
+            // update 
+            profile = await Profile.findOneAndUpdate({user: req.user.id}, {$set:profileFields}, {new: true});
+           return res.status(200).json(profile); 
+        }
+        // create a new one 
+        profile = new Profile(profileFields); 
+        await profile.save(); 
+        return res.status(200).json(profile); 
+
+
+    }catch(err) {
+        console.log(err.message); 
+        res.status(500).send("server error")
+    }
+
 
 }
 
