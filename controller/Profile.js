@@ -85,7 +85,7 @@ exports.createProfile = async (req, res) =>{
 
     }catch(err) {
         console.log(err.message); 
-        res.status(500).send("server error");
+        res.status(500).send("server error")
     }
 
 
