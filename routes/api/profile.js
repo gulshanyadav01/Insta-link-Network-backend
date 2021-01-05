@@ -32,4 +32,11 @@ router.post("/", [auth, [
 
 router.get("/", profileController.getProfile); 
 
+
+// @ route Get   api/profile/user/:user_id
+// @ desc  get   profile by user id 
+// @ accesss Public 
+
+router.get("/user/:user_id", profileController.getProfileByUserId); 
+
 module.exports = router;

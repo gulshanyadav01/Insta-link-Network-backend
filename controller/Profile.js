@@ -104,3 +104,21 @@ exports.getProfile = async(req, res, next) =>{
         res.status(500).send("server error"); 
     }
 }
+
+
+// to get profile by user id 
+
+exports.getProfileByUserId = async (req, res, next) => {
+    try{
+        const profile = await Profile.findOne({user: req.params.user_id}).populate("user", ["name", "avatar"]);
+        if(!profile) return res.status(400).json({msg:"there is no profile for this user"});
+        return res.json(profile);
+
+    }catch(error ){
+        console.log(error); 
+        if(err.kind == "ObjectId"){
+            return res.status(400).json({msg: "profile not found "}); 
+        }
+        return res.status(500).send("server error"); 
+    }
+}
