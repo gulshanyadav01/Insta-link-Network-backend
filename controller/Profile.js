@@ -192,6 +192,50 @@ exports.deleteExperience = async (req, res, next) => {
     }catch(error){
         console.log(error);
         return res.status(500).json("server error");
+
+    }
+}
+
+// to add the education 
+
+exports.putEducation = async (req, res, next) =>{
+    const errors = validationResult(req); 
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors: errors.array()});
+
+    }
+    const {
+        school,
+        degree, 
+        fieldOfStudy,
+        from,
+        to,
+        current,
+        description
+    } = req.body; 
+
+    const newEducation = {
+        school,
+        degree, 
+        fieldOfStudy,
+        from,
+        to,
+        current,
+        description
         
+    }
+
+    try{
+        const profile = await Profile.findOne({user: req.user.id});
+        profile.education.push(newEducation); 
+        await profile.save(); 
+        return res.status(201).json(profile); 
+
+
+    }catch(error){
+        console.log(error.message);
+        return res.status(500).send("server error");
+        
+
     }
 }

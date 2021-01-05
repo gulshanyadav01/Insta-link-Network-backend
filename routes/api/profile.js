@@ -63,4 +63,15 @@ router.put("/experience", [
 
 router.delete("/experience/:exp_id", auth, profileController.deleteExperience);
 
+// @ route PUT api/profile/education
+// @ desc  ADD  Education  to  profile
+// @ accesss Private 
+router.put("/education", [auth,[
+    check("school", "school is required").not().isEmpty(),
+    check("degree", "degree is required").not().isEmpty(),
+    check("fieldOfStudy", "field of Study is required").not().isEmpty(),
+    check("from", "from is required").not().isEmpty()
+
+]], profileController.putEducation);
+
 module.exports = router;
