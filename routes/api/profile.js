@@ -41,8 +41,20 @@ router.get("/user/:user_id", profileController.getProfileByUserId);
 
 // @ route Delete    api/profile
 // @ desc  delete    profile by user id 
-// @ accesss Public 
+// @ accesss Private 
 
 router.delete("/", auth ,  profileController.deleteProfile); 
+
+// @ route Put    api/profile/experience 
+// @ desc  Add profile experience 
+// @ accesss Private 
+
+router.put("/experience", [
+    auth, [
+        check("title", "Title is required").not().isEmpty(),
+        check("company", "company is required").not().isEmpty(),
+        check("from", "from date is required").not().isEmpty()
+    ]
+], profileController.putExperience )
 
 module.exports = router;
