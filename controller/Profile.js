@@ -120,5 +120,26 @@ exports.getProfileByUserId = async (req, res, next) => {
             return res.status(400).json({msg: "profile not found "}); 
         }
         return res.status(500).send("server error"); 
+  }
+}
+
+
+// to delete the profile 
+exports.deleteProfile = async(req, res, next) => {
+    try {
+        // to do post 
+        
+        // remove profile 
+        await Profile.findOneAndRemove({user:req.user.id}); 
+
+        // remove user 
+        await User.findOneAndRemove({_id: req.user.id}); 
+        return res.status(200).json({msg:"user deleted"})
+
+        
+    } catch (error) {
+        console.log(error); 
+        return res.status(500).send('server error'); 
+        
     }
 }
