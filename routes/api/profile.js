@@ -26,4 +26,10 @@ router.post("/", [auth, [
     ]
 ], profileController.createProfile)
 
+// @ route Get   api/profile/
+// @ desc  get all  profile
+// @ accesss Public 
+
+router.get("/", profileController.getProfile); 
+
 module.exports = router;

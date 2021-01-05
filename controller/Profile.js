@@ -85,9 +85,22 @@ exports.createProfile = async (req, res) =>{
 
     }catch(err) {
         console.log(err.message);
-        res.status(500).send("server error")
+        res.status(500).send("server error");
     }
 
 
 }
 
+
+// to get the all users profile
+
+exports.getProfile = async(req, res, next) =>{
+    try {
+        const profiles = await Profile.find().populate("user", ["name", "email", "avatar"]);
+        res.status(200).json(profiles)
+        
+    } catch (error) {
+        console.log(error.message); 
+        res.status(500).send("server error"); 
+    }
+}
