@@ -235,7 +235,24 @@ exports.putEducation = async (req, res, next) =>{
     }catch(error){
         console.log(error.message);
         return res.status(500).send("server error");
-        
 
+
+    }
+}
+
+// delete the education from profile
+
+exports.deleteEducation = async (req, res, next) => {
+    try {
+        const profile = await  Profile.findOne({user: req.user.id}); 
+        const removeIndex = profile.education.map(item => item.id).indexOf(req.params.edu_id);
+        profile.education.splice(removeIndex, 1); 
+        await profile.save(); 
+        return res.status(200).json(profile); 
+
+        
+    } catch (error) {
+        console.log(error.message); 
+        return res.status(500).send("server error"); 
     }
 }

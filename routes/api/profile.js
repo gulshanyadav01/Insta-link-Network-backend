@@ -74,4 +74,10 @@ router.put("/education", [auth,[
 
 ]], profileController.putEducation);
 
+// @ route delete  api/profile/education/:edu_id
+// @ desc  delete   Education  from   profile
+// @ accesss Private 
+
+router.delete("/education/:edu_id", auth, profileController.deleteEducation); 
+
 module.exports = router;
