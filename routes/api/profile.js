@@ -57,4 +57,10 @@ router.put("/experience", [
     ]
 ], profileController.putExperience )
 
+// @ route DELETE api/profile/experience/:exp_id
+// @ desc  delete  experience from profile
+// @ accesss Private 
+
+router.delete("/experience/:exp_id", auth, profileController.deleteExperience);
+
 module.exports = router;

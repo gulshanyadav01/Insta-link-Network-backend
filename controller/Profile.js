@@ -176,3 +176,22 @@ exports.putExperience = async(req, res, next) => {
     }
 
 }
+
+// to delete the profile experience 
+
+exports.deleteExperience = async (req, res, next) => {
+    try{
+            const profile = await Profile.findOne({user: req.user.id});
+
+            // get remove index
+            const removeIndex = profile.experience.map(item => item.id).indexOf(req.params.exp_id);
+            profile.experience.splice(removeIndex, 1);
+            await profile.save();
+            return res.json(profile);
+
+    }catch(error){
+        console.log(error);
+        return res.status(500).json("server error");
+        
+    }
+}
