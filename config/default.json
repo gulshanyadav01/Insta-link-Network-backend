@@ -1,4 +1,6 @@
 {
     "mongoURI":"mongodb+srv://gulshan:Tzd8Rx20iYBRgyFG@cluster0.pzhj1.mongodb.net/socialNetwork?retryWrites=true&w=majority",
-    "jwtSecret":"mysecrettoken"
+    "jwtSecret":"mysecrettoken",
+    "githubClientId":"01273eacf970656f42c1",
+    "githubSecret":"729791941a3333061e2d4bcfd6d458ddd8209c89"
 }

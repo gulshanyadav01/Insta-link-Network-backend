@@ -3,6 +3,7 @@ const router = express.Router();
 const profileController = require("../../controller/Profile"); 
 const {check, validationResult} = require("express-validator"); 
 const auth = require("../../middleware/auth");
+const { route } = require("./auth");
 
 
 // @ route get  api/profile/me
@@ -78,6 +79,13 @@ router.put("/education", [auth,[
 // @ desc  delete   Education  from   profile
 // @ accesss Private 
 
-router.delete("/education/:edu_id", auth, profileController.deleteEducation); 
+router.delete("/education/:edu_id", auth, profileController.deleteEducation);
+
+// @ route GET  api/profile/github/:username
+// @ desc  get user repos from github 
+// @ accesss Public
+
+router.get("/github/:username", profileController.getReposFromGithub); 
+
 
 module.exports = router;
