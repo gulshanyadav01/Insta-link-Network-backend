@@ -269,9 +269,9 @@ exports.getReposFromGithub = (req, res, next) =>{
         request(options, (error, response, body) =>{
             if(error) console.log(error); 
             if(response.statusCode !== 200){
-                res.status(404).json({msg:"No github profile found "}); 
+              return   res.status(404).json({msg:"No github profile found "}); 
             }
-            res.json(JSON.parse(body));
+           return  res.json(JSON.parse(body));
         })
         
     }catch(error){
