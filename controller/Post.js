@@ -106,7 +106,7 @@ exports.likePostById = async(req, res, next) =>{
     }
 }
 
-// unlike the post 
+// unlike the post by id 
 
 exports.unlikePostById = async(req, res , next) =>{
     try{
@@ -126,5 +126,35 @@ exports.unlikePostById = async(req, res , next) =>{
     }catch(error){
         console.log(error.message); 
         return res.status(500).send("server error"); 
+    }
+}
+
+// post the comment by id; 
+
+exports.postCommentById = async(req, res, next) =>{
+    const errors = validationResult(req); 
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors: errors.array()}); 
+
+    }
+
+    try {
+        const user =  await User.findById(req.user.id).select("-password");
+        const post = await Post.findById(req.params.id); 
+        const newComment = {
+            text: req.body.text,
+            name: user.name,
+            avatar: user.avatar,
+            user: req.user.id
+        }
+        post.comments.push(newComment); 
+        await post.save(); 
+        return res.status(200).json(post.comments); 
+
+        
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).send('server error');  
+        
     }
 }

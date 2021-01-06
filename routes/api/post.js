@@ -4,6 +4,7 @@ const auth = require("../../middleware/auth")
 const {check, validationResult} = require("express-validator"); 
 
 const postController = require("../../controller/Post");
+// const { route } = require("./auth");
 
 // @ route Post  api/post/
 // @ desc  create a post
@@ -44,5 +45,16 @@ router.put("/like/:id",auth,  postController.likePostById);
 // @ desc  unlike  a  post by id
 // @ accesss Private
 router.put("/unlike/:id", auth, postController.unlikePostById); 
+
+
+// @ route Post  api/post/comment
+// @ desc  comment post by id 
+// @ accesss Private
+router.post("/comment/:id", [
+    auth, [
+        check("text", "text is required").not().isEmpty()
+    ]
+], postController.postCommentById); 
+
 
 module.exports = router;
