@@ -21,5 +21,16 @@ router.post("/",[ auth, [
 router.get("/", auth, postController.getAllPosts); 
 
 
+// @ route Get   api/post/:post_id
+// @ desc  Get single post by id
+// @ accesss Private  
+router.get('/:post_id',auth, postController.getPostById); 
+
+
+
+// @ route DELETE   api/post/:post_id
+// @ desc  delete a  post by id
+// @ accesss Private
+router.delete("/:post_id", auth, postController.deletePostById); 
 
 module.exports = router;
