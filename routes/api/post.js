@@ -33,4 +33,16 @@ router.get('/:post_id',auth, postController.getPostById);
 // @ accesss Private
 router.delete("/:post_id", auth, postController.deletePostById); 
 
+
+// @ route Put    api/post/like/:id
+// @ desc  like  a  post by id
+// @ accesss Private
+router.put("/like/:id",auth,  postController.likePostById); 
+
+
+// @ route Put    api/post/unlike/:id
+// @ desc  unlike  a  post by id
+// @ accesss Private
+router.put("/unlike/:id", auth, postController.unlikePostById); 
+
 module.exports = router;

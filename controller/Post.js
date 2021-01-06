@@ -3,6 +3,7 @@ const Post = require("../model/Post");
 const Profile = require("../model/Profile"); 
 const {validationResult} = require("express-validator"); 
 const config  = require("config");
+const { response } = require("express");
 
 // create post 
 exports.postCreatePost = async(req, res, next) =>{
@@ -80,6 +81,49 @@ exports.deletePostById = async(req, res, next) =>{
         if(error.kind === "ObjectId"){
             return res.status(404).json({msg:"Post not found "}); 
         }
+        console.log(error.message); 
+        return res.status(500).send("server error"); 
+    }
+}
+
+// like a post by id 
+
+exports.likePostById = async(req, res, next) =>{
+    try{
+        const post = await Post.findById(req.params.id); 
+
+        // check if the post has already been liked by this user 
+        if(post.likes.filter(like => like.user.toString() === req.user.id).length > 0){
+            return res.status(400).json({msg:"post already liked "}); 
+
+        }
+        post.likes.push({user:req.user.id}); 
+        await post.save(); 
+        return res.status(200).json(post.likes); 
+    }catch(error){
+        console.log(error.message);
+        return res.status(500).send("server error"); 
+    }
+}
+
+// unlike the post 
+
+exports.unlikePostById = async(req, res , next) =>{
+    try{
+        const post = await Post.findById(req.params.id); 
+        
+        // check if the post has already been liked 
+        if(post.likes.filter(like => like.user.toString() === req.user.id).length === 0){
+            return res.status(404).json({msg:"post has not been  liked  yet "});
+
+        }
+        // get the remove index 
+        const removeIndex = post.likes.map(like => like.user.toString()).indexOf(req.user.id)
+        post.likes.splice(removeIndex, 1); 
+        await post.save(); 
+        return res.status(200).json(post.likes); 
+
+    }catch(error){
         console.log(error.message); 
         return res.status(500).send("server error"); 
     }
