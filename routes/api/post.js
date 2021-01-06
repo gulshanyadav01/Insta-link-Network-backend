@@ -15,4 +15,11 @@ router.post("/",[ auth, [
 ], postController.postCreatePost)
 
 
+// @ route Get   api/post/
+// @ desc  Get all posts 
+// @ accesss Private  
+router.get("/", auth, postController.getAllPosts); 
+
+
+
 module.exports = router;

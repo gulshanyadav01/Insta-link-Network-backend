@@ -28,3 +28,14 @@ exports.postCreatePost = async(req, res, next) =>{
     }
 
 }
+
+
+exports.getAllPosts = async(req, res, next) =>{
+    try {
+        const post = await Post.find().sort({date: -1});
+        return res.status(200).json(post);  
+    } catch (error) {
+        console.log(error.message); 
+        return res.status(500).send("server error"); 
+    }
+}
