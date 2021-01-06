@@ -158,3 +158,32 @@ exports.postCommentById = async(req, res, next) =>{
         
     }
 }
+
+
+// delete the comment by id from a post by id 
+
+exports.deleteCommentById = async(req, res, next) => {
+    try{
+        const post = await Post.findById(req.params.id);
+
+        //pull out the comments 
+        const comment = post.comments.find(comment => comment.id === req.params.comment_id); 
+
+        // make sure comments exists 
+        if(!comment){
+            return res.status(404).json({msg: "Comments not exists"}); 
+
+        }
+        // check user 
+        if(comment.user.toString() !== req.user.id){
+            return res.status(401).json({msg:"user not authorized"});   
+        }
+        // get remove index 
+        const removeIndex = post.comments.map(comment => comment.user.toString()).indexOf(req.user.id); 
+        post.comments.splice(removeIndex, 1); 
+        await post.save(); 
+        return res.status(200).json(post.comments); 
+    }catch(error){
+        console.log(error.message); 
+    }
+}
