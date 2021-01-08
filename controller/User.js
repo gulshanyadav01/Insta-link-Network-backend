@@ -18,7 +18,7 @@ exports.postRegisterUser = async (req, res) =>{
     try{
         let user = await User.findOne({email: email});
         if(user){
-            res.status(400).json({errors: [{msg:"User is already exists"}]}); 
+            return res.status(400).json({errors: [{msg:"User is already exists"}]}); 
         }
 
     // get users gravatar 
@@ -44,21 +44,18 @@ exports.postRegisterUser = async (req, res) =>{
             id:user.id
         }
     } 
-    jwt.sign(
+    const token = jwt.sign(
         payload, 
         config.get("jwtSecret"),
-        {expiresIn: 360000 }, (err, token )=>{
-            if(err) throw err; 
-            res.json({token});
-
-        }) 
+        {expiresIn: 360000 }); 
+        return res.json({token});
     
 
     // return json web token 
 
     }catch(err){
         console.log(err.message); 
-        res.status(500).send("server error")
+        return res.status(500).send("server error")
     } 
 }
 
