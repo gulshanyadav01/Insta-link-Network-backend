@@ -59,7 +59,7 @@ exports.createProfile = async (req, res) =>{
     if(skills){
         profileFields.skills = skills.split(",").map(skill => skill.trim()); 
     }
-    console.log(profileFields.skills); 
+    // console.log(profileFields.skills); 
     
     // build social object 
 
@@ -87,7 +87,7 @@ exports.createProfile = async (req, res) =>{
 
     }catch(err) {
         console.log(err.message);
-        res.status(500).send("server error");
+        return res.status(500).send("server error");
     }
 
 
@@ -103,7 +103,7 @@ exports.getProfile = async(req, res, next) =>{
         
     } catch (error) {
         console.log(error.message); 
-        res.status(500).send("server error"); 
+        return res.status(500).send("server error"); 
     }
 }
 
@@ -172,7 +172,7 @@ exports.putExperience = async(req, res, next) => {
 
         
     } catch (error) {
-        console.log(error.message); 
+        // console.log(error.message); 
         return res.status(500).send('server error');
         
     }
@@ -192,7 +192,7 @@ exports.deleteExperience = async (req, res, next) => {
             return res.json(profile);
 
     }catch(error){
-        console.log(error);
+        // console.log(error);
         return res.status(500).json("server error");
 
     }

@@ -6,6 +6,9 @@ const ProfileSchema = new mongoose.Schema({
         ref:"user",
 
     },
+    location:{
+        type:String
+    },
     company:{
         type:String
 
@@ -15,11 +18,11 @@ const ProfileSchema = new mongoose.Schema({
     },
     status:{
         type:String, 
-        required: true
+        // required: true
     },
     skills:{
         type:[String],
-        required: true
+        // required: true
     },
     bio:{
         type:String
