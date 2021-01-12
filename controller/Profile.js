@@ -72,7 +72,7 @@ exports.createProfile = async (req, res) =>{
 
     try{
         let profile = await Profile.findOne({user: req.user.id})
-        console.log(req.user.id)
+        // console.log(req.user.id)
         // console.log(profile)
         if(profile){
             // update 
