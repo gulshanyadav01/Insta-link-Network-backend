@@ -5,8 +5,10 @@ const {validationResult} = require("express-validator");
 const config  = require("config");
 const { response } = require("express");
 
+
 // create post 
 exports.postCreatePost = async(req, res, next) =>{
+    console.log(req.file);
     const errors = validationResult(req); 
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()});
@@ -35,7 +37,7 @@ exports.postCreatePost = async(req, res, next) =>{
 // get all posts 
 exports.getAllPosts = async(req, res, next) =>{
     try {
-        const post = await Post.find().sort({date: -1});
+        const post = await Post.find().sort({date: -1}).populate("users", ["name", "avatar"]);
         return res.status(200).json(post);  
     } catch (error) {
         console.log(error.message); 
