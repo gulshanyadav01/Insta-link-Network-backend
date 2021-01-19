@@ -28,7 +28,7 @@ const authRouter = require("./routes/api/auth");
 const postRouter = require("./routes/api/post"); 
 const profileRouter = require("./routes/api/profile"); 
 const userRouter = require("./routes/api/users"); 
-app.use("/upload", fileRoute); 
+// app.use("/upload", fileRoute); 
 app.use("/api/auth", authRouter); 
 app.use("/api/users", userRouter); 
 app.use("/api/post", postRouter); 
