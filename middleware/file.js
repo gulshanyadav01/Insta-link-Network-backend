@@ -9,6 +9,6 @@ const upload = multer({storage}).single("image");
 
 const AWS = require('aws-sdk'); 
 const S3 = new AWS({
-    accessKeyId:
+    accessKeyId
     secretAccessKey:
 })
