@@ -18,4 +18,4 @@ router.post("/",[
 ], userController.postRegisterUser);
 
 
-module.exports = router
+module.exports = router;
