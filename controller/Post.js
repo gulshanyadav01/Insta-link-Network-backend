@@ -3,12 +3,15 @@ const Post = require("../model/Post");
 const Profile = require("../model/Profile"); 
 const {validationResult} = require("express-validator"); 
 const config  = require("config");
+const ACCESSKEY = config.get("ACCESSKEY")
 const { response } = require("express");
+// require("dotenv/config");
 
 
 // create post 
 exports.postCreatePost = async(req, res, next) =>{
     console.log(req.file);
+    console.log(ACCESSKEY)
     const errors = validationResult(req); 
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()});
@@ -21,6 +24,7 @@ exports.postCreatePost = async(req, res, next) =>{
         text:req.body.text,
         name:user.name,
         avatar:user.avatar,
+        image:req.file.location,
         user:req.user.id
     })
 
