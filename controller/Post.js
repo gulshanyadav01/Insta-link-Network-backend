@@ -7,14 +7,14 @@ const {validationResult} = require("express-validator");
 const { response } = require("express");
 const config = require("config"); 
 // require("dotenv/config");
-const a = config.get("ACCESSKEY")
+// const a = config.get("ACCESSKEY")
 
 
 // create post 
 exports.postCreatePost = async(req, res, next) =>{
-    console.log(req.file.location);
+    // console.log(req.file.location);
     // console.log(ACCESSKEY)
-    console.log(a); 
+    // console.log(a); 
     const errors = validationResult(req); 
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()});

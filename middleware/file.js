@@ -49,6 +49,5 @@ const upload = multer({
 
 
 module.exports = upload
-const express  = require("express"); 
-const app  = express();
+
 
