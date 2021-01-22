@@ -17,13 +17,18 @@ app.get("/", (req, res) =>{
     res.send("api is running");
 })
 
+
+// for file upload 
+
+const fileRoute = require("./middleware/file");
+
 // define routes
 
 const authRouter = require("./routes/api/auth"); 
 const postRouter = require("./routes/api/post"); 
 const profileRouter = require("./routes/api/profile"); 
 const userRouter = require("./routes/api/users"); 
-
+// app.use("/upload", fileRoute); 
 app.use("/api/auth", authRouter); 
 app.use("/api/users", userRouter); 
 app.use("/api/post", postRouter); 

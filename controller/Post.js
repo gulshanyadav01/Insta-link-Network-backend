@@ -2,11 +2,19 @@ const User = require("../model/User");
 const Post = require("../model/Post"); 
 const Profile = require("../model/Profile"); 
 const {validationResult} = require("express-validator"); 
-const config  = require("config");
+// const config  = require("config");
+// const ACCESSKEY = config.get("ACCESSKEY")
 const { response } = require("express");
+const config = require("config"); 
+// require("dotenv/config");
+const a = config.get("ACCESSKEY")
+
 
 // create post 
 exports.postCreatePost = async(req, res, next) =>{
+    console.log(req.file.location);
+    // console.log(ACCESSKEY)
+    console.log(a); 
     const errors = validationResult(req); 
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()});
@@ -19,6 +27,7 @@ exports.postCreatePost = async(req, res, next) =>{
         text:req.body.text,
         name:user.name,
         avatar:user.avatar,
+        image:req.file.location,
         user:req.user.id
     })
 
@@ -35,7 +44,7 @@ exports.postCreatePost = async(req, res, next) =>{
 // get all posts 
 exports.getAllPosts = async(req, res, next) =>{
     try {
-        const post = await Post.find().sort({date: -1});
+        const post = await Post.find().sort({date: -1}).populate("users", ["name", "avatar"]);
         return res.status(200).json(post);  
     } catch (error) {
         console.log(error.message); 

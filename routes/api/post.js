@@ -1,7 +1,8 @@
 const express = require("express"); 
 const router = express.Router();
 const auth = require("../../middleware/auth")
-const {check, validationResult} = require("express-validator"); 
+const {check, validationResult} = require("express-validator");
+const upload  = require('../../middleware/file');  
 
 const postController = require("../../controller/Post");
 // const { route } = require("./auth");
@@ -9,7 +10,7 @@ const postController = require("../../controller/Post");
 // @ route Post  api/post/
 // @ desc  create a post
 // @ accesss Private  
-router.post("/",[ auth, [
+router.post("/",[ auth, upload.single("image"),  [
     check("text", "text is required").not().isEmpty()
 
 ]
