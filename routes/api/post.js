@@ -10,7 +10,7 @@ const postController = require("../../controller/Post");
 // @ route Post  api/post/
 // @ desc  create a post
 // @ accesss Private  
-router.post("/",[ auth ,  [
+router.post("/",[ auth, upload.single("image"),  [
     check("text", "text is required").not().isEmpty()
 
 ]
