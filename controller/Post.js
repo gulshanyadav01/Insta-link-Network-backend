@@ -23,13 +23,15 @@ exports.postCreatePost = async(req, res, next) =>{
     
     try{
     const user = await User.findById(req.user.id).select("-password");
-    const newPost = new Post ( {
-        text:req.body.text,
-        name:user.name,
-        avatar:user.avatar,
-        image:req.file.location,
-        user:req.user.id
-    })
+   
+        const newPost = new Post ( {
+            text:req.body.text,
+            name:user.name,
+            avatar:user.avatar,
+            image:req.file.location,
+            user:req.user.id
+        })
+    
 
     const post = await newPost.save();
     return res.json(post); 
