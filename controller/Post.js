@@ -193,6 +193,6 @@ exports.deleteCommentById = async(req, res, next) => {
         await post.save(); 
         return res.status(200).json(post.comments); 
     }catch(error){
-        console.log(error.message)
+        console.log(error.message); 
     }
 }
