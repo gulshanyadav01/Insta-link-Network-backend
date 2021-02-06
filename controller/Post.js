@@ -171,7 +171,7 @@ exports.postCommentById = async(req, res, next) =>{
 }
 
 
-// delete the comment by id from a post by id 
+// delete the comments by id from a post by id 
 
 exports.deleteCommentById = async(req, res, next) => {
     try{
