@@ -34,9 +34,9 @@ app.use("/api/users", userRouter);
 app.use("/api/post", postRouter); 
 app.use("/api/profile",profileRouter); 
 
-const PORT = process.env.PORT || 5000; 
+const PORT = process.env.PORT || 8000; 
 
-
+[]
 app.listen(PORT, () =>{
     console.log(`server started on port ${PORT}`)
 })
