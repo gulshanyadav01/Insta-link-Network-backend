@@ -35,7 +35,7 @@ app.use("/api/users", userRouter);
 app.use("/api/post", postRouter); 
 app.use("/api/profile",profileRouter); 
 
-const PORT = process.env.PORT || 8000; 
+const PORT = process.env.PORT || 8800; 
 
 []
 app.listen(PORT, () =>{
