@@ -163,14 +163,7 @@ exports.putExperience = async(req, res, next) => {
         current,
         description
     }; 
-    let  date1 = new Date(from); 
-        date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate()
-
-        let  date2 = new Date(to); 
-        date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate()
-
-        newExp.to = date2; 
-        newExp.from = date1; 
+    
     try {
        const profile =  await Profile.findOne({user: req.user.id});
        profile.experience.push(newExp);
@@ -223,11 +216,7 @@ exports.putEducation = async (req, res, next) =>{
         description
     } = req.body; 
 
-        let  date1 = new Date(from); 
-        date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate()
-
-        let  date2 = new Date(to); 
-        date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate()
+        
 
     const newEducation = {
         school,
@@ -239,8 +228,6 @@ exports.putEducation = async (req, res, next) =>{
         description
         
     }
-    newEducation.from = date1; 
-    newEducation.to = date2; 
 
     try{
         const profile = await Profile.findOne({user: req.user.id});
