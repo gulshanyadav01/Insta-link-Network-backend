@@ -12,9 +12,7 @@ const config = require("config");
 
 // create post 
 exports.postCreatePost = async(req, res, next) =>{
-    // console.log(req.file.location);
-    // console.log(ACCESSKEY)
-    // console.log(a); 
+     
     const errors = validationResult(req); 
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()});
@@ -46,6 +44,7 @@ exports.postCreatePost = async(req, res, next) =>{
 // get all posts 
 exports.getAllPosts = async(req, res, next) =>{
     try {
+        // recent one 
         const post = await Post.find().sort({date: -1}).populate("users", ["name", "avatar"]);
         return res.status(200).json(post);  
     } catch (error) {
